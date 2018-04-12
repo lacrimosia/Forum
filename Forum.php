@@ -1,7 +1,7 @@
 <?php
 class Forum{
 	public $background;
-	public static $links = array
+	public $links = array
 	(
 		array(
 			"page" => "index.php", 

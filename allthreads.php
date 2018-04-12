@@ -16,7 +16,7 @@
 		<h1>All Threads</h1>
 	</section>" ?>
 	<?php
-   echo $_GET['q'];
+   echo $_GET['q']."<br>";
 ?>
 </body>
 </html>

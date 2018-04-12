@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 	require_once('Topics.php');
 	$t = new Topics();
@@ -21,5 +22,13 @@
 	 }
 	?>
     </section>
+     <?php  
+     if(strlen($_SESSION["name"]) >= 8){
+     	echo "<h1>Wassup, ".$_SESSION["name"]."!</h1>"; 
+     }else{
+     	echo "<h1>Wilkommen, ".$_SESSION["name"]."!</h1>"; 
+     }
+     
+     ?>
 </body>
 </html>
