@@ -74,15 +74,38 @@
 		// sessions are great because it stores values on multiple pages and holds it
 		// sessions can be set using the session_start()
 
+	//	$_SESSION["name"] = "Jane"; // initialize
+
 		if(isset($_POST["newerName"])){
-			$_SESSION["name"] = $_POST["newerName"];
+
+			$_SESSION["name"] = filter_var($_POST["newerName"], FILTER_SANITIZE_STRING);
 			setcookie("lastNameUpdated", $_POST["newerName"], time() + (86400 * 30), "localhost/forum/");
 		}
 		$_SESSION["age"] = 37;
+
 		if(isset($_SESSION["name"])){
 			echo "<h3>".$_SESSION["name"]." is set. </h3>";
+		}else{
+			echo "<h3> Name not set. </h3>";
 		}
-		
+
+
+		// filter_var() - sanitize and validate text and/or numbers and data
+
+	//	$s = "<script>alert('hello');</script>";
+	//	$stripped = filter_var($s, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+	//	$stripped .= "<!---";
+	//	echo $s." to <br>".$stripped;
+	//	$d = b("Time");
+	//	function b($word){
+	//		if(strlen($word)>4){
+	//			throw new Exception("Word is too long.", 1);	
+	//		}
+	//		echo "My word is: $word.";
+	//	}
+
+	
+
 	?>
 </body>
 </html>
