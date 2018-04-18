@@ -104,8 +104,50 @@
 	//		echo "My word is: $word.";
 	//	}
 
-	
+	// error handling function
+	//$x = 2;
 
+	//if($x > 0){
+		// trigger_error("x must be less than 0.", E_USER_WARNING); // this triggers an error for illegal input
+		// the second parameter is the error type. This ranges from User_Error, User_warning, and User_Notice
+	//}
+
+	// the error function
+	//function getError($errorLevel, $errorMessage, $errorFile, $errorLine){
+	//	echo "You have a level $errorLevel error stating: \"$errorMessage \" within $errorFile on line $errorLine";
+	//	die();
+	//}
+
+	// set the error handler
+	//set_error_handler("getError");
+
+    // connecting php to mySQL
+	$serverName = "localhost";
+	$userName = "root";
+	$password = "";
+
+	// create connection
+	$conn = new mysqli($serverName, $userName, $password);
+
+	//check connection
+	if($conn->connect_error){
+		die("Connection failed: ".$conn->connect_error);
+	}else{
+		echo "Connected Successfully";
+	}
+	//$conn->close(); 
+
+	// create the database
+	$sql = "CREATE DATABASE IF NOT EXISTS Candy";
+
+	// check query and see if database exists or create it
+	if($conn->query($sql) === TRUE){
+		echo "Database created";
+	}else{
+		echo "Database creation error: ".$conn->error;
+	}
+
+	
 	?>
 </body>
 </html>
