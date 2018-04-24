@@ -140,6 +140,7 @@
 	// create the database
 	$sql = "CREATE DATABASE IF NOT EXISTS Candy";
 
+
 	// check query and see if database exists or create it
 	if($conn->query($sql) === TRUE){
 		echo "Database created";
@@ -147,7 +148,28 @@
 		echo "Database creation error: ".$conn->error;
 	}
 
+	// first create the database
+	// next, put in "use database" so it knows which database to use
+	$conn->query("use Candy");
+
+	// create the table for the candies
+	$createTable = "CREATE TABLE IF NOT EXISTS CandiesList(
+		id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+		name VARCHAR(30) NOT NULL,
+		quantity VARCHAR(30) NOT NULL,
+		sold VARCHAR(50),
+		reg_date TIMESTAMP
+	)";
+
+	if($conn->query($createTable)===TRUE){
+		echo "Table created Successfully.";
+	}else{
+		echo "Error creating table: ".$conn->error;
+	}
+
+	//$insertData = 
 	
+	$conn->close();
 	?>
 </body>
 </html>
