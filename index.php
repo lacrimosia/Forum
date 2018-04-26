@@ -76,10 +76,11 @@
 
 	//	$_SESSION["name"] = "Jane"; // initialize
 
-		if(isset($_POST["newerName"])){
+		
+		if(isset($_POST['newerName'])){
 
-			$_SESSION["name"] = filter_var($_POST["newerName"], FILTER_SANITIZE_STRING);
-			setcookie("lastNameUpdated", $_POST["newerName"], time() + (86400 * 30), "localhost/forum/");
+			$_SESSION["name"] = filter_var($_POST['newerName'], FILTER_SANITIZE_STRING);
+			setcookie("lastNameUpdated", $_POST['newerName'], time() + (86400 * 30), "localhost/forum/");
 		}
 		$_SESSION["age"] = 37;
 
@@ -158,7 +159,7 @@
 		name VARCHAR(30) NOT NULL,
 		quantity VARCHAR(30) NOT NULL,
 		sold VARCHAR(50),
-		reg_date TIMESTAMP
+		reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	)";
 
 	if($conn->query($createTable)===TRUE){
@@ -167,8 +168,23 @@
 		echo "Error creating table: ".$conn->error;
 	}
 
-	//$insertData = 
+	// insert data into table
+	// Insert $_POST data into the database
+	if(isset($_POST['newerName'])){
+		$candyName = $_POST['newerName'];
+		if($conn->query("INSERT INTO CandiesList(name, quantity, sold)
+VALUES('".$candyName."', 1, 1)")===TRUE){
+			echo " data entered. ";
+		}else{
+			echo " Data not entered. ".$conn->error;
+		}
+	}else{
+		$candyName = NULL;
+	}	
+
 	
+
+
 	$conn->close();
 	?>
 </body>
