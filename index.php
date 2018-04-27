@@ -20,6 +20,7 @@
 	<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		&nbsp;<input type="text" placeholder="enter a name..." name="newerName"/>
 		<button type="submit">Change Name</button>
+		<button type="submit" name="clear">Clear Rows</button>
 	</form>
 	<?php
 
@@ -168,6 +169,10 @@
 		echo "Error creating table: ".$conn->error;
 	}
 
+	// bind parameters when passsing data to the database by type
+
+	//$conn->bind("sii", $candyName, quantity, sold)
+
 	// insert data into table
 	// Insert $_POST data into the database
 	if(isset($_POST['newerName'])){
@@ -183,6 +188,34 @@ VALUES('".$candyName."', 1, 1)")===TRUE){
 	}	
 
 	
+	// select column data from the table and display it
+	$getCandyName = "SELECT name from CandiesList";
+	$result = $conn->query($getCandyName);
+	$output = "";
+
+	// delete data from the table
+	$removeRows = "TRUNCATE CandiesList";
+
+	// prints out the data of each row 
+	// shows results to the screen
+	if($result->num_rows > 0){
+		// output the data of each row
+		while($row = $result->fetch_assoc()){
+			$output = "<div>Candy name: ".$row["name"]."</div>";
+			echo $output;
+		}
+	}else{
+		echo "<div></div>";
+	}
+
+	// clear results out of the table by button
+	if(isset($_POST["clear"])){
+		$conn->query($removeRows);
+		if($result->num_rows === 0){
+			$output = "<div></div>";
+			echo $output;
+		}
+	}
 
 
 	$conn->close();
